@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Http\Requests\StoreClientRequest;
-use App\Http\Requests\UpdateClientRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
@@ -13,7 +13,11 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::all();
+
+        return view('clients.index', [
+            'clients' => $clients
+        ]);
     }
 
     /**
@@ -21,15 +25,50 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreClientRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'first_name' => 'required|max:50|min:3|alpha',
+                'last_name' => 'required|max:50|min:3|alpha',
+                'personal_id' => 'required|max_digits:11',
+            ],
+            [
+                'first_name.required' => 'Please enter client first name!',
+                'first_name.max' => 'Client first name is too long!',
+                'first_name.min' => 'Client first name is too short!',
+                'first_name.alpha' => 'Client first name must contain only letters!',
+                'last_name.required' => 'Please enter client last name!',
+                'last_name.max' => 'Client last name is too long!',
+                'last_name.min' => 'Client last name is too short!',
+                'last_name.alpha' => 'Client last name must contain only letters!',
+                'personal_id.required' => 'Please enter client personal ID!',
+                'personal_id.max_digits' => 'Personal ID must consist of 11 numbers!',
+            ]
+        );
+
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $client = new Client;
+        $client->first_name = $request->first_name;
+        $client->last_name = $request->last_name;
+        $client->personal_id = $request->personal_id;
+
+        $client->save();
+        return redirect()
+            ->route('clients-index')
+            ->with('success', 'New client has been added!');
     }
 
     /**
@@ -45,15 +84,58 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('clients.edit', [
+            'client' => $client
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClientRequest $request, Client $client)
+    public function update(Request $request, Client $client)
     {
-        //
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'first_name' => 'required|max:50|min:3|alpha',
+                'last_name' => 'required|max:50|min:3|alpha',
+            ],
+            [
+                'first_name.required' => 'Please enter client first name!',
+                'first_name.max' => 'Client first name is too long!',
+                'first_name.min' => 'Client first name is too short!',
+                'first_name.alpha' => 'Client first name must contain only letters!',
+                'last_name.required' => 'Please enter client last name!',
+                'last_name.max' => 'Client last name is too long!',
+                'last_name.min' => 'Client last name is too short!',
+                'last_name.alpha' => 'Client last name must contain only letters!',
+            ]
+        );
+
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $client->first_name = $request->first_name;
+        $client->last_name = $request->last_name;
+
+        $client->save();
+        return redirect()
+            ->route('clients-index')
+            ->with('success', 'Client ' . $client->first_name . ' ' . $client->last_name . ' details have been updated!');
+    }
+
+    public function delete(Client $client)
+    {
+        // if ($client->colors()->count()) {
+        //     return redirect()->back()->with('info', 'Can not delete author, because it has colors!');
+        // }
+
+        return view('clients.delete', [
+            'client' => $client
+        ]);
     }
 
     /**
@@ -61,6 +143,9 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return redirect()
+            ->route('clients-index')
+            ->with('success', 'Client ' . $client->first_name . ' ' . $client->last_name . ' has been deleted!');
     }
 }

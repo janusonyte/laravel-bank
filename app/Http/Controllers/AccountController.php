@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
-use App\Http\Requests\StoreAccountRequest;
-use App\Http\Requests\UpdateAccountRequest;
+use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
@@ -27,7 +26,7 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAccountRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAccountRequest $request, Account $account)
+    public function update(Request $request, Account $account)
     {
         //
     }
