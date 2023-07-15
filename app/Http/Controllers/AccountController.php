@@ -41,16 +41,16 @@ class AccountController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'iban' => 'required|max:20|min:20',
+                // 'iban' => 'required|max:20|min:20',
                 'client_id' => 'required|integer',
                 'balance' => 'required|integer'
             ],
             [
-                'iban.required' => 'Please enter account No!',
-                'iban.max' => 'Account No is too long!',
-                'iban.min' => 'Account No is too short!',
-                'client_id.required' => 'Please select the client!',
-                'client_id.integer' => 'Please select the client!',
+                // 'iban.required' => 'Please enter account No!',
+                // 'iban.max' => 'Account No is too long!',
+                // 'iban.min' => 'Account No is too short!',
+                'client_id.required' => 'You must select a client',
+                'client_id.integer' => 'You must select a client',
             ]
         );
 
@@ -60,14 +60,15 @@ class AccountController extends Controller
         }
 
         $account = new Account;
-        $account->iban = $request->iban;
+        // $account->iban = $request->iban;
+        $account->iban = AccountController::generateIban();
         $account->client_id = $request->client_id;
         $account->balance = $request->balance;
 
         $account->save();
         return redirect()
             ->route('accounts-index')
-            ->with('success', 'New account has been added!');
+            ->with('success', 'Success! A new account has been created');
     }
 
     /**
@@ -102,8 +103,8 @@ class AccountController extends Controller
                 'balance' => 'required|integer'
             ],
             [
-                'balance.required' => 'Please enter the amount!',
-                'balance.integer' => 'The amount has to be integer!',
+                'balance.required' => 'Please enter an amount',
+                'balance.integer' => 'Incorrect value. The amount has to be a number',
             ]
         );
 
@@ -117,14 +118,14 @@ class AccountController extends Controller
         $account->save();
         return redirect()
             ->route('accounts-index')
-            ->with('success', 'Account balance has been edited!');
+            ->with('success', 'Balance has been edited');
     }
 
     public function delete(Account $account)
     {
 
         if ($account->balance > 0) {
-            return redirect()->back()->with('info', 'Cannot delete account, because it has money in it!');
+            return redirect()->back()->with('info', 'The account cannot be deleted - the balance is not zero');
         }
 
         return view('accounts.delete', [
@@ -141,5 +142,21 @@ class AccountController extends Controller
         return redirect()
             ->route('accounts-index')
             ->with('success', 'Account ' . $account->iban . ' has been deleted!');
+    }
+
+    public static function generateIban()
+    {
+        $bankAccountNumber = sprintf('%016d', mt_rand(0, 99999999999999));
+        $countryCode = 'LT';
+        $iban = $countryCode . '00' . $bankAccountNumber;
+        $ibanDigits = str_split($iban);
+        $checksum = 0;
+        foreach ($ibanDigits as $digit) {
+            $checksum = ($checksum * 10 + intval($digit)) % 97;
+        }
+        $checksumDigits = sprintf('%02d', 98 - $checksum);
+        $iban = substr_replace($iban, $checksumDigits, 2, 2);
+
+        return $iban;
     }
 }

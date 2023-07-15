@@ -19,11 +19,11 @@
                                 @endforeach
                             </select>
                         </div>
-
+{{-- 
                         <div class="mb-3">
                             <label class="form-label">Account Number</label>
                             <input name="iban" type="text" class="form-control" value="{{old('iban')}}">
-                        </div>
+                        </div> --}}
                         <div class="mb-3">
                             <label class="form-label">Balance, € (euro)</label>
                             <input name="balance" type="text" class="form-control" value="{{old('balance')}}">

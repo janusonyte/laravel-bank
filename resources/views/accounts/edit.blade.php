@@ -19,7 +19,7 @@
                                         <div class="fw-bold">{{$account->balance}}</div>
                                         <div>
                                             <label for="amount">Enter the amount, €:</label>
-                                            <input name="amount" type="number" class="form-control" value="">
+                                            <input name="balance" type="number" class="form-control" value="{{$account->balance}}">
                                         </div>
                                     </div>
                                 </div>

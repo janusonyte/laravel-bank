@@ -13,14 +13,14 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <h3>Total nb. of clients: {{$clients->count()}}</h3>
-                    <h3>Total nb. of accounts: {{$accounts->count()}}</h3>
-                    <h3>Total ammount in bank: {{$accounts->sum('balance')}} €</h3>
-                    <h3>Biggest ammount in account: {{$accounts->max('balance')}} €</h3>
-                    <h3>Smallest ammount in account: {{$accounts->min('balance')}} €</h3>
-                    <h3>Average ammount in account: {{round($accounts->avg('balance'),2)}} €</h3>
-                    <h3>Total nb. of accounts with 0 balance: {{$accounts->where('balance', 0)->count()}}</h3>
-                    <h3>Total nb. of accounts with negative balance: {{$accounts->where('balance','<', 0)->count()}}</h3>
+                    <h3>Number of clients: <b>{{$clients->count()}}</b></h3>
+                    <h3>Number of accounts in the bank: <b>{{$accounts->count()}}</b></h3>
+                    <h3>Amount of money stored in the bank: <b>{{$accounts->sum('balance')}}€</b></h3>
+                    <h3>Biggest amount held in an account: <b>{{$accounts->max('balance')}}€</b></h3>
+                    <h3>Smallest amount held in an account: <b>{{$accounts->min('balance')}}€</b></h3>
+                    <h3>Average amount held in an account: <b>{{round($accounts->avg('balance'),2)}}€</b></h3>
+                    <h3>Number of accounts with 0 balance: <b>{{$accounts->where('balance', 0)->count()}}</b></h3>
+                    <h3>Number of accounts with negative balance: <b>{{$accounts->where('balance','<', 0)->count()}}</b></h3>
                 </div>
             </div>
         </div>
