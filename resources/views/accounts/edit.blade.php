@@ -18,14 +18,14 @@
                                         <div>Balance, €</div>
                                         <div class="fw-bold">{{$account->balance}}</div>
                                         <div>
-                                            <label for="amount">Enter the amount, €:</label>
-                                            <input name="balance" type="number" class="form-control" value="{{$account->balance}}">
+                                            <label for="balance">Enter the amount, €:</label>
+                                            <input name="balance" type="number" class="form-control" value="">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-success m-1">Add</button>
-                            <button type="submit" class="btn btn-danger m-1">Withdraw</button>
+                            <button name="addFunds" type="submit" class="btn btn-success m-1">Add</button>
+                            <button name="removeFunds" type="submit" class="btn btn-danger m-1">Withdraw</button>
                             <a class="btn btn-secondary m-1" href="{{route('accounts-index')}}">Cancel</a>
                             @method('put')
                             @csrf

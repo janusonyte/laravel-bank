@@ -113,7 +113,18 @@ class AccountController extends Controller
             return redirect()->back()->withErrors($validator);
         }
 
-        $account->balance = $request->balance;
+        if ($request->has('addFunds')) {
+            $addFunds = $request->balance;
+            $account->balance += $addFunds;
+        } elseif ($request->has('removeFunds')) {
+            $removeFunds = $request->balance;
+            if ($removeFunds > $account->balance) {
+                return redirect()->back()->withErrors(['balance' => 'Insufficient balance to remove!']);
+            }
+            $account->balance -= $removeFunds;
+        }
+
+        // $account->balance = $request->balance;
 
         $account->save();
         return redirect()
