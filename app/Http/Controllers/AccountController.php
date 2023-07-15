@@ -41,14 +41,10 @@ class AccountController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                // 'iban' => 'required|max:20|min:20',
                 'client_id' => 'required|integer',
                 'balance' => 'required|integer'
             ],
             [
-                // 'iban.required' => 'Please enter account No!',
-                // 'iban.max' => 'Account No is too long!',
-                // 'iban.min' => 'Account No is too short!',
                 'client_id.required' => 'You must select a client',
                 'client_id.integer' => 'You must select a client',
             ]
@@ -60,7 +56,6 @@ class AccountController extends Controller
         }
 
         $account = new Account;
-        // $account->iban = $request->iban;
         $account->iban = AccountController::generateIban();
         $account->client_id = $request->client_id;
         $account->balance = $request->balance;
