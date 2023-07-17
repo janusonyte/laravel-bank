@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="card">
-            <h5 class="card-header">Add new account</h5>
+            <h5 class="card-header">Create a new account</h5>
                 <div class="card-body">
                     <h6 class="card-subtitle mb-3 text-muted">Choose a client from the clients list</h6>
                     <form method="post" action="{{route('accounts-store')}}">
@@ -28,8 +28,8 @@
                             <label class="form-label">Balance, € (euro)</label>
                             <input name="balance" type="text" class="form-control" value="{{old('balance')}}">
                         </div>
-                        <button type="submit" class="btn btn-primary m-1">Add</button>
-                        <a class="btn btn-secondary m-1" href="{{route('accounts-index')}}">Cancel</a>
+                        <button type="submit" class="pastel-green">Create</button>
+                        <a class="button pastel-blue" href="{{route('accounts-index')}}">Cancel</a>
                         @csrf
                     </form>
                 </div>

@@ -6,3 +6,61 @@ $font-family-sans-serif: 'Roboto Mono', monospace;
 $font-family-serif: 'Press Start 2P', cursive;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+$black: #080708;
+$blue: #3772FF;
+$red: #c52933;
+$yellow: #FDCA40;
+$gray: #E6E8E6;
+$green: rgba(81, 175, 125, 1);
+$pink: rgb(204, 105, 122);
+$slate-gray: #36453b;
+$retro-purple: #b34bca;
+$gradient-purple: rgba(131, 58, 180, 1);
+$retro-light-purple: #c88ed5;
+$retro-vlight-purple: #EBA7FA;
+$retro-blue: #272760;
+$retro-pink: #FD3777;
+$retro-light-green: #67e1c4;
+$retro-dark-green: #459b86;
+
+$pastel-yellow: #FCF5D9;
+$pastel-orange: #F9B236;
+$pastel-red: #EF7F74;
+$pastel-purple: #C8ABDB;
+$pastel-green: #AFBA78;
+$pastel-pink: #F491B0;
+$pastel-beige: #EEE2D6;
+$pastel-blue: #749ED0;
+
+
+
+
+:export {
+    black: $black;
+    blue: $blue;
+    red: $red;
+    yellow: $yellow;
+    gray: $gray;
+    green: $green;
+    pink: $pink;
+    slate-gray: $slate-gray;
+    retro-purple: $retro-purple;
+    gradient-purple: $gradient-purple;
+    retro-blue: $retro-blue;
+    retro-light-green: $retro-light-green;
+    retro-dark-green: $retro-dark-green;
+    retro-light-purple: $retro-light-purple;
+    retro-vlight-purple: $retro-vlight-purple;
+
+    pastel-yellow: $pastel-yellow;
+    pastel-orange: $pastel-orange;
+    pastel-red: $pastel-red;
+    pastel-purple: $pastel-purple;
+    pastel-green: $pastel-green;
+    pastel-pink: $pastel-pink;
+    pastel-beige: $pastel-beige;
+    pastel-blue: $pastel-blue;
+
+
+}

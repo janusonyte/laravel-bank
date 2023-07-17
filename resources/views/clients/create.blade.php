@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="card">
-            <h5 class="card-header">Add new client</h5>
+            <h5 class="card-header">Create a new client</h5>
                 <div class="card-body">
-                    <h6 class="card-subtitle mb-3 text-muted">Enter first name, last name and personal ID</h6>
+                    <h6 class="card-subtitle mb-3 text-muted fs-4">Enter client details</h6>
                     <form method="post" action="{{route('clients-store')}}">
                         <div class="mb-3">
                             <label class="form-label">First Name</label>
@@ -21,8 +21,8 @@
                             <label class="form-label">Personal ID</label>
                             <input name="personal_id" type="text" class="form-control" value="{{old('personal_id')}}">
                         </div>
-                        <button type="submit" class="btn btn-primary m-1">Add</button>
-                        <a class="btn btn-secondary m-1" href="{{route('clients-index')}}">Cancel</a>
+                        <button type="submit" class="pastel-green">Create</button>
+                        <a class="button pastel-blue" href="{{route('clients-index')}}">Cancel</a>
                         @csrf
                     </form>
                 </div>

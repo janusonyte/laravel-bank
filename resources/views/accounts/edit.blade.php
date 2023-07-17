@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="card">
             <h5 class="card-header">Edit account balance</h5>
                 <div class="card-body">
@@ -13,20 +13,19 @@
                                 <div class="d-flex mb-3">
                                     <div class="ms-2">
                                         <div class="fw-bold fs-3">{{$account->iban}}</div>
-                                        <div>Client</div>
-                                        <div class="fw-bold">{{$account->client_id}}</div>
-                                        <div>Balance, €</div>
-                                        <div class="fw-bold">{{$account->balance}}</div>
+                                        <div class="fw-bold fs-3">{{$account->client->first_name}} {{$account->client->last_name}}</div>
+                                        <div> Current balance:</div>
+                                        <div class="fw-bold fs-3">{{$account->balance}} €</div>
                                         <div>
-                                            <label for="balance">Enter the amount, €:</label>
+                                            <label for="balance">Enter the amount:</label>
                                             <input name="balance" type="number" class="form-control" value="">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button name="addFunds" type="submit" class="btn btn-success m-1">Add</button>
-                            <button name="removeFunds" type="submit" class="btn btn-danger m-1">Withdraw</button>
-                            <a class="btn btn-secondary m-1" href="{{route('accounts-index')}}">Cancel</a>
+                            <button name="addFunds" type="submit" class="pastel-green">Deposit</button>
+                            <button name="withdrawFunds" type="submit" class="pastel-red">Withdraw</button>
+                            <a class="button pastel-blue" href="{{route('accounts-index')}}">Cancel</a>
                             @method('put')
                             @csrf
                         </form>

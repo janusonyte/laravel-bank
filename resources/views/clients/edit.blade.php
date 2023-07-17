@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="card">
                 <h5 class="card-header">Edit client details</h5>
                 <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Edit first name and/or last name</h6>
+
                     <form method="post" action="{{route('clients-update', $client)}}">
                         <div class="mb-3">
                             <label class="form-label">First Name</label>
@@ -17,8 +17,8 @@
                             <label class="form-label">Last Name</label>
                             <input name="last_name" type="text" class="form-control" value="{{old('last_name', $client->last_name)}}">
                         </div>
-                        <button type="submit" class="btn btn-primary m-1">Save</button>
-                        <a class="btn btn-secondary m-1" href="{{route('clients-index')}}">Cancel</a>
+                        <button type="submit" class="pastel-green">Save</button>
+                        <a class="button pastel-blue" href="{{route('clients-index')}}">Cancel</a>
                         @method('put')
                         @csrf
                     </form>

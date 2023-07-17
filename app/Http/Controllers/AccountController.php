@@ -111,12 +111,12 @@ class AccountController extends Controller
         if ($request->has('addFunds')) {
             $addFunds = $request->balance;
             $account->balance += $addFunds;
-        } elseif ($request->has('removeFunds')) {
-            $removeFunds = $request->balance;
-            if ($removeFunds > $account->balance) {
-                return redirect()->back()->withErrors(['balance' => 'Insufficient balance to remove!']);
+        } elseif ($request->has('withdrawFunds')) {
+            $withdrawFunds = $request->balance;
+            if ($withdrawFunds > $account->balance) {
+                return redirect()->back()->withErrors(['balance' => 'Error. Insufficient funds.']);
             }
-            $account->balance -= $removeFunds;
+            $account->balance -= $withdrawFunds;
         }
 
         // $account->balance = $request->balance;
@@ -124,7 +124,7 @@ class AccountController extends Controller
         $account->save();
         return redirect()
             ->route('accounts-index')
-            ->with('success', 'Balance has been edited');
+            ->with('success', 'Success. Account balance has been changed.');
     }
 
     public function delete(Account $account)
