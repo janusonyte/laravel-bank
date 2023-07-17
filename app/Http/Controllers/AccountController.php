@@ -12,13 +12,51 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $accounts = Account::all();
+
 
         return view('accounts.index', [
             'accounts' => $accounts
         ]);
+
+        // Sort
+        // $sortBy = $request->sort_by ?? '';
+        // $orderBy = $request->order_by ?? '';
+        // if ($orderBy && !in_array($orderBy, ['asc', 'desc'])) {
+        //     $orderBy = '';
+        // }
+
+        // // Pagination
+        // $perPage = (int) 5;
+
+        // if ($request->s) {
+
+        //     $accounts = Account::where('account', 'like', '%' . $request->s . '%')->paginate(5)->withQueryString();
+        // } else {
+
+        //     // $accounts = Account::select('accounts.*');
+        //     $accounts = Account::select('accounts.*')
+        //         ->join('clients', 'clients.id', '=', 'accounts.client_id')
+        //         ->orderBy('clients.last_name')
+        //         ->get();
+
+        //     // Sort
+        //     $accounts = match ($sortBy) {
+        //         'accounts' => $accounts->orderBy('accounts', $orderBy),
+        //         'last_name' => $accounts->sortByDesc('clients.last_name'),
+        //         default => $accounts
+        //     };
+        //     $accounts = $accounts->paginate($perPage)->withQueryString();
+        // }
+
+        // return view('accounts.index', [
+        //     'accounts' => $accounts,
+        //     'sortBy' => $sortBy,
+        //     'orderBy' => $orderBy,
+        //     'perPage' => $perPage,
+        // ]);
     }
 
     /**
@@ -27,9 +65,11 @@ class AccountController extends Controller
     public function create()
     {
         $clients = Client::all();
+        $iban = Account::generateIban();
 
         return view('accounts.create', [
-            'clients' => $clients
+            'clients' => $clients,
+            'iban' => $iban
         ]);
     }
 
@@ -56,7 +96,7 @@ class AccountController extends Controller
         }
 
         $account = new Account;
-        $account->iban = AccountController::generateIban();
+        $account->iban = $request->iban;
         $account->client_id = $request->client_id;
         $account->balance = $request->balance;
 
@@ -148,21 +188,5 @@ class AccountController extends Controller
         return redirect()
             ->route('accounts-index')
             ->with('success', 'Account ' . $account->iban . ' has been deleted!');
-    }
-
-    public static function generateIban()
-    {
-        $bankAccountNumber = sprintf('%016d', mt_rand(0, 99999999999999));
-        $countryCode = 'LT';
-        $iban = $countryCode . '00' . $bankAccountNumber;
-        $ibanDigits = str_split($iban);
-        $checksum = 0;
-        foreach ($ibanDigits as $digit) {
-            $checksum = ($checksum * 10 + intval($digit)) % 97;
-        }
-        $checksumDigits = sprintf('%02d', 98 - $checksum);
-        $iban = substr_replace($iban, $checksumDigits, 2, 2);
-
-        return $iban;
     }
 }

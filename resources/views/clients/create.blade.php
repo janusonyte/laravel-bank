@@ -7,7 +7,6 @@
             <div class="card">
             <h5 class="card-header">Create a new client</h5>
                 <div class="card-body">
-                    <h6 class="card-subtitle mb-3 text-muted fs-4">Enter client details</h6>
                     <form method="post" action="{{route('clients-store')}}">
                         <div class="mb-3">
                             <label class="form-label">First Name</label>

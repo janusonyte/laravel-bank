@@ -11,12 +11,39 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clients = Client::all();
+        // Sort
+        $sortBy = $request->sort_by ?? '';
+        $orderBy = $request->order_by ?? '';
+        if ($orderBy && !in_array($orderBy, ['asc', 'desc'])) {
+            $orderBy = '';
+        }
+
+        // Pagination
+        $perPage = (int) 3;
+
+        if ($request->s) {
+
+            $clients = Client::where('client', 'like', '%' . $request->s . '%')->paginate(3)->withQueryString();
+        } else {
+
+            $clients = Client::select('clients.*');
+
+            // Sort
+            $clients = match ($sortBy) {
+                'client' => $clients->orderBy('client', $orderBy),
+                'last_name' => $clients->orderBy('last_name', $orderBy),
+                default => $clients
+            };
+            $clients = $clients->paginate($perPage)->withQueryString();
+        }
 
         return view('clients.index', [
-            'clients' => $clients
+            'clients' => $clients,
+            'sortBy' => $sortBy,
+            'orderBy' => $orderBy,
+            'perPage' => $perPage,
         ]);
     }
 

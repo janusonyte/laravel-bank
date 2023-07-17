@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ClientController as C;
 use App\Http\Controllers\AccountController as A;
+use App\Http\Controllers\TransferController as T;
 
 
 /*
@@ -43,6 +44,11 @@ Route::prefix('accounts')->name('accounts-')->group(function () {
     Route::put('/{account}', [A::class, 'update'])->name('update');
     Route::get('/delete/{account}', [A::class, 'delete'])->name('delete');
     Route::delete('/{account}', [A::class, 'destroy'])->name('destroy');
+});
+
+Route::prefix('transfer')->name('transfer-')->group(function () {
+    Route::get('/moneytransfer', [T::class, 'moneytransfer'])->name('moneytransfer');
+    Route::put('/moneytransfer', [T::class, 'transfer'])->name('transfer');
 });
 
 // Login/logout

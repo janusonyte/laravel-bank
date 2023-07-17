@@ -55,6 +55,9 @@
                                 <a class="dropdown-item" href="{{ route('clients-create') }}">Add new client</a>
                             </div>
                         </li>
+                        <li class="nav-item .navbar-nav">
+                            <a class="nav-link active" aria-current="page" href="{{ route('transfer-moneytransfer') }}">Transfer €</a>
+                        </li>
                         
                         <!-- Authentication Links -->
                         @guest
@@ -72,7 +75,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    USER: {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
