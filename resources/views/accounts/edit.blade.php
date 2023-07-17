@@ -8,7 +8,7 @@
             <h5 class="card-header">Edit account balance</h5>
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2 text-muted">Add or withdraw money from account</h6>
-                        <form method="post" action="{{route('accounts-destroy', $account)}}">
+                        <form method="post" action="{{route('accounts-update', $account)}}">
                             <div class="justify-content-between">
                                 <div class="d-flex mb-3">
                                     <div class="ms-2">
