@@ -8,9 +8,11 @@
                 <h5 class="card-header">Money transfer form</h5>
             <div class="card-body">
                 <form action="{{route('transfer-moneytransfer')}}" method="post">
+
                     <label class="form-label">
                         <div class="fw-bold fs-5">From account:</div>
                     </label>
+                    
                     <select class="form-select fs-5" name="moneyfrom">
                         <option value="default">Select an account</option>
                         @foreach($accounts as $account)
@@ -28,6 +30,8 @@
                     <label class="form-label">
                         <div class="fw-bold fs-5">To account:</div>
                     </label>
+
+
                     <select class="form-select fs-5" name="moneyto">
                         <option value="default">Select an account</option>
                         @foreach($accounts as $account)
