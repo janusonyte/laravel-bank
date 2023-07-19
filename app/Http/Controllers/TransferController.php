@@ -47,8 +47,14 @@ class TransferController extends Controller
                 ->withInput();
         }
 
+
         $fromAccount = Account::findOrFail($request->moneyfrom);
         $toAccount = Account::findOrFail($request->moneyto);
+        if ($fromAccount->balance < $request->amount) {
+            return redirect()
+                ->back()
+                ->withErrors(['balance' => 'Error. Insufficient funds.']);
+        }
         $fromAccount->balance -= $request->amount;
         $toAccount->balance += $request->amount;
 

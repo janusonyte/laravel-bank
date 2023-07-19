@@ -46,11 +46,11 @@
                             <div class="card inner-card m-5">
                                 <div class="card-body inner-card-body">
                                     <div class="ms-2">
+                                        <div>IBAN:</div>
                                         <div class="fw-bold fs-5 text-decoration-underline">{{$account->iban}}</div>
-                                        <div>Client:</div>
+                                        <div>Belongs to:</div>
                                         <div class="fw-bold fs-5">{{ $account->client->first_name}} {{ $account->client->last_name}}</div>
-                                        {{-- <div class="fw-bold">{{$account->client_id}}</div> --}}
-                                        <div>Balance:</div>
+                                        <div>Current balance:</div>
                                         <div class="fw-bold fs-5">{{$account->balance}} €</div>
                                     </div>
                                     <div class="ms-1 mt-4 mb-4">

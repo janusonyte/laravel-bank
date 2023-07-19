@@ -154,7 +154,7 @@ class AccountController extends Controller
         } elseif ($request->has('withdrawFunds')) {
             $withdrawFunds = $request->balance;
             if ($withdrawFunds > $account->balance) {
-                return redirect()->back()->withErrors(['balance' => 'Error. Insufficient funds.']);
+                return redirect()->back()->withErrors(['balance' => 'Error. Insufficient funds for transfer.']);
             }
             $account->balance -= $withdrawFunds;
         }
