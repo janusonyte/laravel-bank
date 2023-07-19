@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ClientController as C;
 use App\Http\Controllers\AccountController as A;
 use App\Http\Controllers\TransferController as T;
+use App\Http\Controllers\TaxesController as F;
 
 
 /*
@@ -32,6 +33,9 @@ Route::prefix('clients')->name('clients-')->group(function () {
     Route::put('/{client}', [C::class, 'update'])->name('update');
     Route::get('/delete/{client}', [C::class, 'delete'])->name('delete');
     Route::delete('/{client}', [C::class, 'destroy'])->name('destroy');
+
+    // Taxes - Charge (action)
+    Route::get('/charge', [C::class, 'charge'])->name('charge');
 });
 
 // Accounts
@@ -50,6 +54,9 @@ Route::prefix('transfer')->name('transfer-')->group(function () {
     Route::get('/moneytransfer', [T::class, 'moneytransfer'])->name('moneytransfer');
     Route::put('/moneytransfer', [T::class, 'transfer'])->name('transfer');
 });
+
+// Taxes (view)
+Route::get('/home', [F::class, 'index'])->name('home');
 
 // Login/logout
 Auth::routes();

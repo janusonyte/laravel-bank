@@ -29,6 +29,18 @@
                 </div>
             </div>
             </div>
+            <div class="card">
+                <h2 class="card-header">Taxes</h2>
+                <div class="card-body">
+                    <p class="card-subtitle  text-muted">The bank charges an administrative fee to all clients, who have accounts.</p>
+                    <form action="{{route('clients-charge')}}" method='get'>
+                        <div class="d-flex justify-content-center">
+                            <button  class="pastel-orange" type="submit">Tax</button>
+                        </div>
+                    </form>
+                    @csrf
+                </div>
+            </div>
         </div>
     </div>
 </div>

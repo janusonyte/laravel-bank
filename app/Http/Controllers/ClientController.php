@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -157,10 +158,33 @@ class ClientController extends Controller
             ->with('success', 'Client ' . $client->first_name . ' ' . $client->last_name . ' details have been updated!');
     }
 
+    public function charge()
+    {
+        $clients = Client::all();
+        $ids = $clients->pluck('id')->toArray();
+        $amount = 0;
+        $taxedClients = 0;
+        $numOfClients = 0;
+
+        foreach ($ids as $id) {
+            $account = Account::where('client_id', $id)->first();
+            if (!is_null($account)) {
+                $account->balance -= 5;
+                $account->save();
+                $amount += 5;
+                $taxedClients++;
+            } else {
+                $numOfClients++;
+            }
+        }
+
+        return redirect()->back()->with('success', 'A total of ' . $amount . ' € has been charged from ' . $taxedClients . ' clients. ' . $numOfClients . ' have not been charged.');
+    }
+
     public function delete(Client $client)
     {
         if ($client->accounts()->count()) {
-            return redirect()->back()->with('info', 'Can not delete client, because it has accounts!');
+            return redirect()->back()->with('info', 'Cannot delete. Client has accounts.');
         }
 
         return view('clients.delete', [
